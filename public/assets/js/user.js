@@ -7,11 +7,9 @@
 // })
 
 $(function () {
- 
 
-
-   // 上传头像功能
-   $('#avatar').on('change', function () {
+  // 上传头像功能
+  $('#modefiyUser').on('change','#avatar', function () {
     // 创建formData对象
     var formdata = new FormData()
     // 设置formData对象的自定义属性，属性值为上传文件的路径
@@ -35,36 +33,72 @@ $(function () {
       }
     })
   })
- //创建用户并上传
- $('#fm').on('submit', function () {
-  var formdata = $(this).serialize()
-  $.ajax({
-    type:'POST',
-    url:'/users',
-    data:formdata,
-    success:function(){
-      location.reload
-    },
-    error:function(){
-      alert("用户添加失败")
-    }
-  })
-})
-return false
-})
-  window.addEventListener('load',function () {    
-    //获取用户信息并展示用户信息
+  //创建用户并上传
+  $('#fm').on('submit', function () {
+    var formdata = $(this).serialize()
     $.ajax({
-      url:'/users',
-      type:'get',
-      success:function(data) { 
-        console.log(data);
-        var  html=template('userTpl',{data:data})
-        var userBody=document.querySelector('#userBody')
-        userBody.innerHTML+=html;
+      type: 'POST',
+      url: '/users',
+      data: formdata,
+      success: function () {
+        location.reload
+      },
+      error: function () {
+        alert("用户添加失败")
+      }
+    })
+    return false;
+  })
+
+  $('#modefiyUser').on('submit','#formUser' ,function () {
+    var params = $(this).serialize()
+    var id=$(this).attr('data-id')
+    $.ajax({
+      type: 'put',
+      url: `/users/${id}`,
+      data: params,
+      success: function () {
+        location.reload
+      },
+      error: function () {
+        alert("用户修改失败")
       }
     })
   })
-
-
-
+  
+})
+window.addEventListener('load', function () {
+  //获取用户信息并展示用户信息
+  $.ajax({
+    url: '/users',
+    type: 'get',
+    success: function (data) {
+      console.log(data);
+      
+      var html = template('userTpl', {
+        data: data
+      })
+      var userBody = document.querySelector('#userBody')
+      userBody.innerHTML += html;
+    }
+  })
+  var userBody = document.querySelector('#userBody');
+  userBody.addEventListener('click', function (e) {
+    if (e.target.className.indexOf('edit') != -1) {
+      $.ajax({
+        url: `/users/${e.target.parentElement.parentElement.getAttribute("data-id")}`,
+        type: 'get',
+        success: function (data) {
+          console.log(data);
+          
+          var html = template('userModeifyTpl', {
+            data: data
+          })
+          var modefiyUser = document.querySelector('#modefiyUser')
+          modefiyUser.innerHTML=''
+          modefiyUser.innerHTML = html;
+        }
+      })
+    }
+  })
+})

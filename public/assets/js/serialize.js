@@ -1,12 +1,12 @@
 function serialize(form) {
-    var parts = [],
-        field = null,
+    var parts = [],//保存字符串将要创建的各个部分
+        field = null,//用来存储每一条表单字段
         i,
-        len,
+        len,//表单字段长度;表单字段包括<input><select><button>等
         j,
-        optLen,
+        optLen,//select中option的个数
         option,
-        optValue;
+        optValue;//select中option的值
     //form.elements.length是表单元素的长度
     for (i = 0, len = form.elements.length; i < len; i++) {
         //field是form的元素

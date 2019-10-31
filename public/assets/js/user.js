@@ -28,7 +28,7 @@ $(function () {
         // 实现图片预览
         $('#tx').attr('src', response[0].avatar)
         // 把图片地址保存在隐藏域的value属性中，由表单提交到数据库
-        $('#hdinput').val(response[0].avatar)
+        $('#hdinput').val(response[0].avatar.split('\\').join('/'))
       },
       error: function () {
         alert('头像上传失败')
@@ -58,10 +58,9 @@ return false
       url:'/users',
       type:'get',
       success:function(data) { 
-        // console.log(data);
+        console.log(data);
         var  html=template('userTpl',{data:data})
         var userBody=document.querySelector('#userBody')
-        
         userBody.innerHTML+=html;
       }
     })

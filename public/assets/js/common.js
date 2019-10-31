@@ -1,24 +1,20 @@
 var logout = document.querySelector('#logout')
 
-window.addEventListener('load',function() { 
+window.addEventListener('load', function () {
 
-    logout.addEventListener('click',function() { 
+    logout.addEventListener('click', function () {
 
-        if(confirm('你看我牛不牛逼？？？')) {
-            $.ajax({ 
-                url:'/logout',
-                type:'post',
+        if (confirm('你看我牛不牛逼？？？')) {
+            $.ajax({
+                url: '/logout',
+                type: 'post',
                 success: function () {
-                     location.reload('/admin/login.html')
+                    location.reload('/admin/login.html')
                 },
-                error:function() {
+                error: function () {
                     console.log('退出失败');
-                    
-                }   
+                }
             })
         }
-
-       
-    
-})
+    })
 })

@@ -164,7 +164,7 @@
         <td>{{$value.status=='admin'?'管理员':'普通用户'}}</td>
         <td class="text-center">
           <a href="javascript:;" class="btn btn-default btn-xs edit">编辑</a>
-          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs delete">删除</a>
         </td>
       </tr>
     {{/each}}
@@ -179,10 +179,11 @@
           <input id="avatar" type="file">
           {{if (data.avatar)}}
             <img src="{{data.avatar}}" id="tx" >
+            <input type="hidden" id="hdinput" name="avatar" value="{{data.avatar}}">
             {{else}}
             <img src="../assets/img/default.png" id="tx" >
           {{/if}}
-           <input type="hidden" id="hdinput" name="avatar">
+           
           <i class="mask fa fa-upload"></i>
         </label>
       </div>

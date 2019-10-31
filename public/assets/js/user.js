@@ -34,14 +34,14 @@ $(function () {
     })
   })
   //创建用户并上传
-  $('#fm').on('submit', function () {
+  $('#modefiyUser').on('submit', '#fm',function () {
     var formdata = $(this).serialize()
     $.ajax({
       type: 'POST',
       url: '/users',
       data: formdata,
       success: function () {
-        location.reload
+        location.reload();
       },
       error: function () {
         alert("用户添加失败")
@@ -58,7 +58,7 @@ $(function () {
       url: `/users/${id}`,
       data: params,
       success: function () {
-        location.reload
+        location.reload()
       },
       error: function () {
         alert("用户修改失败")
@@ -73,7 +73,6 @@ window.addEventListener('load', function () {
     url: '/users',
     type: 'get',
     success: function (data) {
-      console.log(data);
       
       var html = template('userTpl', {
         data: data
@@ -89,7 +88,6 @@ window.addEventListener('load', function () {
         url: `/users/${e.target.parentElement.parentElement.getAttribute("data-id")}`,
         type: 'get',
         success: function (data) {
-          console.log(data);
           
           var html = template('userModeifyTpl', {
             data: data
@@ -100,5 +98,15 @@ window.addEventListener('load', function () {
         }
       })
     }
+    if(e.target.className.indexOf('delete') != -1) {
+      $.ajax({
+        url: `/users/${e.target.parentElement.parentElement.getAttribute("data-id")}`,
+        type: 'delete',
+        success: function (data) {
+          location.reload();
+        }
+      })
+    }
   })
+   
 })

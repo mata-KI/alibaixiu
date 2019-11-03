@@ -39,7 +39,7 @@ module.exports = async (req, res) => {
 			// 如果缩略图存在
 			if (user.avatar) {
 				// 删除缩略图
-				await unlink(path.join(__dirname, '../', '../','../', 'public', user.avatar));
+				await unlink(path.join(__dirname, '../', '../', '../', 'public', user.avatar));
 			}
 		}
 		// 响应
@@ -57,7 +57,7 @@ module.exports = async (req, res) => {
 		// 如果缩略图存在
 		if (user.avatar) {
 			// 删除缩略图
-			await unlink(path.join(__dirname, '../', '../', '../', 'public',user.avatar));
+			await unlink(path.join(__dirname, '../', '../', '../', 'public', user.avatar));
 		}
 		// 响应
 		res.send(user);

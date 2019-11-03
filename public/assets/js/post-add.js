@@ -27,7 +27,7 @@ $(function () {
 
     // 获取浏览器地址栏中的id参数
     var id = getUrlParams('id');
-    
+
     // 当前管理员是在做修改文章操作
     function getUrlParams(name) {
         var paramsAry = location.search.substr(1).split('&');
@@ -40,25 +40,26 @@ $(function () {
         }
         return -1;
     }
-    
-    $.ajax({
-        type:'get',
-        url:`/posts/${id}`,
-        success:function (data) { 
-            $.ajax({
-                type: 'get',
-                url: '/categories',
-                success: function (response) {
-                    data.categoryList=response;
-                    console.log(response);
-                    console.log(data);
-                    var html=template('modeifyTpl',data)
-                    $('#parentBox').html(html)
-                }
-            })
-        }
-    })
-    $('#putArticle').on('submit', '#putform', function () {
+    if (id != -1) {
+        $.ajax({
+            type: 'get',
+            url: `/posts/${id}`,
+            success: function (data) {
+                $.ajax({
+                    type: 'get',
+                    url: '/categories',
+                    success: function (response) {
+                        data.categoryList = response;
+                        console.log(response);
+                        console.log(data);
+                        var html = template('modeifyTpl', data)
+                        $('#parentBox').html(html)
+                    }
+                })
+            }
+        })
+    }
+    $('#parentBox').on('submit', '#putform', function () {
         var formdata = $(this).serialize();
         $.ajax({
             type: 'post',
@@ -74,16 +75,17 @@ $(function () {
         })
         return false;
     })
-    $('#parentBox').on('submit','#modifyform',function () {
+    $('#parentBox').on('submit', '#modifyform', function () {
         var formdata = $(this).serialize();
-        var id =$(this).attr('data-id');
+        var id = $(this).attr('data-id');
         $.ajax({
-            type:'put',
-            url:`/posts/${id}`,
-            data:formdata,
-            success:function () {
-                location.href="posts.html"
+            type: 'put',
+            url: `/posts/${id}`,
+            data: formdata,
+            success: function () {
+                location.href = "posts.html"
             }
         })
+        return false;
     })
 })

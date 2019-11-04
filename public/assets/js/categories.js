@@ -36,7 +36,7 @@ $(function() {
         return false;
     })
     
-    $('#raiseForm').on('submit','#addCategories',function() { 
+    $('#raiseForm').on('submit','#Categories',function() { 
         var id=$(this).attr('data-id');
         var formdata =$(this).serialize();   
         $.ajax({
